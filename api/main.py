@@ -2,10 +2,24 @@
 import shutil
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 from tempfile import NamedTemporaryFile
 from produccion_ramos import ProduccionRamos
 
 app = FastAPI()
+
+# Set up CORS
+origins = [
+    "*",  # Allows all origins, change this to restrict access to specific origins
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/process/")
 async def process_file(file: UploadFile = File(...)):
