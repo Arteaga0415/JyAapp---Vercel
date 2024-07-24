@@ -42,16 +42,6 @@ class ProduccionRamos:
             Otras=pd.NamedAgg(column='Otras', aggfunc='sum')
         ).reset_index()
     
-    def rename_and_save(self, output_file_path='Producciones_por_Ramos_y_Compañias.xlsx'):
-        self.grouped_df.rename(columns={
-            'Ramo': 'Ramo (Tipo)',
-            'SumaDePrima_Participacion': 'Primas Totales',
-            'SumaDeValor_Comi_Gene_Recibos': 'Comisiones'
-        }, inplace=True)
-        
-        self.grouped_df.to_excel(output_file_path, index=False)
-        print(f"Data has been successfully processed and saved to {output_file_path}")
-    
     def save_to_bytes(self):
         output = BytesIO()
         self.grouped_df.to_excel(output, index=False)
@@ -62,7 +52,6 @@ class ProduccionRamos:
         self.load_and_clean_data()
         self.add_insurance_columns()
         self.group_data()
-        self.rename_and_save()
 
 # Example usage:
 # file_path = 'BaseDatosJyA.xlsx'

@@ -35,10 +35,13 @@ async def process_file(file: UploadFile = File(...)):
         produccion_ramos = ProduccionRamos(tmp_file_path)
         produccion_ramos.process_data()
         
-        produccion_ramos = 'processed_data.xlsx'
         output = produccion_ramos.save_to_bytes()
         
-        return StreamingResponse(output, media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', headers={"Content-Disposition": "attachment; filename=processed_data.xlsx"})
+        return StreamingResponse(
+           output,
+           media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+           headers={"Content-Disposition": "attachment; filename=processed_data.xlsx"}
+           )
     except Exception as e:
         logging.error(f"Error processing file: {e}")
         return {"error": str(e)}
