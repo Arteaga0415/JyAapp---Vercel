@@ -1,5 +1,6 @@
 import pandas as pd
 import sys  
+from io import BytesIO
 
 class ProduccionRamos:
     def __init__(self, file_path):
@@ -50,6 +51,12 @@ class ProduccionRamos:
         
         self.grouped_df.to_excel(output_file_path, index=False)
         print(f"Data has been successfully processed and saved to {output_file_path}")
+    
+    def save_to_bytes(self):
+        output = BytesIO()
+        self.grouped_df.to_excel(output, index=False)
+        output.seek(0)
+        return output
     
     def process_data(self):
         self.load_and_clean_data()
