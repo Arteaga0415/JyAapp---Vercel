@@ -40,4 +40,4 @@ async def process_file(file: UploadFile = File(...)):
         logger.error(f"Error processing file: {e}")
         return {"error": str(e)}
 
-# To run the app locally, use the command: uvicorn api.main:app --reload
+# To run the app: uvicorn api.main:app --reload
